@@ -25,7 +25,7 @@ Parameters:
   IPREGISTRYDOMAIN:
     Type: String
     
-  REGISTRYAPIKEY:
+  IPREGISTRYAPIKEY:
     Type: String
 
 Resources:
@@ -45,10 +45,11 @@ Resources:
       FunctionName: !Sub '${AppName}-function'
       Handler: index.handler
       Environment:
-        GIPHY_API_KEY: !Ref GIPHYAPIKEY
-        GITHUB_PERSONAL_ACCESS_TOKEN: !Ref GITHUBPERSONALACCESSTOKEN
-        IP_REGISTRY_DOMAIN: !Ref IPREGISTRYDOMAIN
-        REGISTRY_API_KEY: !Ref REGISTRYAPIKEY
+        Variables: 
+          GIPHY_API_KEY: !Ref GIPHYAPIKEY
+          GITHUB_PERSONAL_ACCESS_TOKEN: !Ref GITHUBPERSONALACCESSTOKEN
+          IP_REGISTRY_DOMAIN: !Ref IPREGISTRYDOMAIN
+          IP_REGISTRY_API_KEY: !Ref IPREGISTRYAPIKEY
 
 
   # Function permissions grant an AWS service or another account permission to use a function

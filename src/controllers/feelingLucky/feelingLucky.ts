@@ -32,7 +32,7 @@ interface IPRegistryResponse {
 const helloWorld: RequestHandler = async (req, res, next) => {
   const ipAddress = (IS_LOCAL ? DEFAULT_IP_ADDRESS : req.ip) as string;
     
-  let randomImgUrl: string;
+  let randomImgUrl = '';
   let locationData: IPRegistryResponse;
   try {
     const response = await axios.get<IPRegistryResponse>(`https://${IP_REGISTRY_DOMAIN}/${ipAddress}?key=${IP_REGISTRY_API_KEY}`);

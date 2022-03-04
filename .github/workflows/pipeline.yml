@@ -24,4 +24,4 @@ jobs:
       # Build inside Docker containers
       - run: sam build
       # Prevent prompts and failure when the stack is unchanged
-      - run: sam deploy --parameter-overrides GIPHYAPIKEY={{secrets.GIPHY_API_KEY}} GITHUBPERSONALACCESSTOKEN={{secrets.GITHUB_PERSONAL_ACCESS_TOKEN}} IPREGISTRYDOMAIN={{secrets.IP_REGISTRY_DOMAIN}} REGISTRYAPIKEY={{secrets.REGISTRY_API_KEY}}
+      - run: sam deploy --parameter-overrides GIPHYAPIKEY=${{ secrets.GIPHY_API_KEY }} GITHUBPERSONALACCESSTOKEN=${{ secrets.GH_PERSONAL_ACCESS_TOKEN }} IPREGISTRYDOMAIN=${{ secrets.IP_REGISTRY_DOMAIN }} IPREGISTRYAPIKEY=${{ secrets.IP_REGISTRY_API_KEY }}
