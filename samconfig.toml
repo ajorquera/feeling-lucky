@@ -7,5 +7,5 @@ s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-nt8r05bu3c5u"
 s3_prefix = "lambda-example"
 region = "us-east-2"
 capabilities = "CAPABILITY_IAM"
-parameter_overrides = "AppName=\"hello-world-typescript-lambda\""
+parameter_overrides = "AppName=\"feeling-lucky-lambda\""
 image_repositories = []
