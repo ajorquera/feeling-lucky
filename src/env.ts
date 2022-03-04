@@ -8,3 +8,16 @@ export const GIPHY_API_KEY = process.env.GIPHY_API_KEY;
 export const GITHUB_PERSONAL_ACCESS_TOKEN = process.env.GITHUB_PERSONAL_ACCESS_TOKEN;
 export const IP_REGISTRY_DOMAIN = process.env.IP_REGISTRY_DOMAIN;
 export const IP_REGISTRY_API_KEY = process.env.IP_REGISTRY_API_KEY;
+
+// Mandatory variables
+[
+  'GIPHY_API_KEY', 
+  'GITHUB_PERSONAL_ACCESS_TOKEN', 
+  'IP_REGISTRY_DOMAIN', 
+  'IP_REGISTRY_API_KEY'
+].forEach((key: string) => {
+  if(!process.env[key]) {
+    console.error(`Missing mandatory env variable: ${key}`);
+    process.exit(1);
+  }
+});

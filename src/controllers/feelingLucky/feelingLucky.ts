@@ -1,58 +1,32 @@
-import { IS_LOCAL, DEFAULT_IP_ADDRESS, IP_REGISTRY_DOMAIN, IP_REGISTRY_API_KEY } from './../../env';
-import { GIPHY_API_KEY, GITHUB_PROFILE_URL } from '../../env';
 import { RequestHandler } from "express";
-import axios from 'axios';
+
+import { IS_LOCAL, DEFAULT_IP_ADDRESS, GITHUB_PROFILE_URL } from './../../env';
 import replaceContent from './replaceContent';
+import getLocation from './getLocation';
+import getImg from './getImg';
 
-
-interface GYPHYResponse {
-  data: {
-      images: {
-        original: {
-          url: string
-        }
-      }
-  }
-};
-
-interface IPRegistryResponse {
-  location: {
-    country: {
-      name: string;
-    },
-    city: string;
-    language: {
-      //ISO code https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-      code: string,
-      name: string
-    }
-  }
-}
-
-const helloWorld: RequestHandler = async (req, res, next) => {
+const helloWorld: RequestHandler = async (req, res, next: NextErrorFn) => {
   const ipAddress = (IS_LOCAL ? DEFAULT_IP_ADDRESS : req.ip) as string;
     
-  let randomImgUrl = '';
   let locationData: IPRegistryResponse;
   try {
-    const response = await axios.get<IPRegistryResponse>(`https://${IP_REGISTRY_DOMAIN}/${ipAddress}?key=${IP_REGISTRY_API_KEY}`);
-    locationData = response.data;
+    locationData = await getLocation(ipAddress);
   } catch (e) {
     return next({code: 'IP_REGISTRY_ERROR', data: e});
   }
   
-  const query = encodeURIComponent(locationData.location.country.name);
+  let randomImgUrl = '';
   try {
-    const giphyResponse = await axios.get<GYPHYResponse>(`https://api.giphy.com/v1/gifs/random?tag=${query}&api_key=${GIPHY_API_KEY}`);
-    randomImgUrl = giphyResponse.data.data.images.original.url;
+    const query = encodeURIComponent(locationData.location.country.name);
+    randomImgUrl = await getImg(query);
   } catch(e) {
-    next(e);
+    return next({code: 'GET_IMG_ERROR', data:e});
   }
   
   try {
     await replaceContent(randomImgUrl);
   } catch(e) {
-    next(e);
+    return next({code: 'REPLACE_CONTENT', data: e});
   }
 
   res.redirect(GITHUB_PROFILE_URL);
