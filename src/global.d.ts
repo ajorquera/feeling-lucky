@@ -5,16 +5,6 @@ interface ErrorType {
 
 type NextErrorFn = (error: ErrorType) => void;
 
-interface GYPHYResponse {
-  data: {
-      images: {
-        original: {
-          url: string
-        }
-      }
-  }
-}
-
 interface IPRegistryResponse {
   location: {
     country: {
