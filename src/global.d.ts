@@ -9,6 +9,7 @@ interface IPRegistryResponse {
   location: {
     country: {
       name: string;
+      code: string;
     },
     city: string;
     language: {

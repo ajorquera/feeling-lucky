@@ -24,7 +24,7 @@ const helloWorld: RequestHandler = async (req, res, next: NextErrorFn) => {
   }
   
   try {
-    await replaceContent(randomImgUrl);
+    await replaceContent(randomImgUrl, locationData.location.country.code);
   } catch(e) {
     return next({code: 'REPLACE_CONTENT', data: e});
   }
