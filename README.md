@@ -1,5 +1,7 @@
 # Lambda Typescript Template
 
+Testing: [I'm feeling lucky](https://fct5mvs0s5.execute-api.us-east-2.amazonaws.com/)
+
 This is a template repo for creating lambda functions using typescript. We are using the serverless pattern [API Gateway HTTP API to Lambda](https://serverlessland.com/patterns/apigw-lambda) using [AWS SAM](https://aws.amazon.com/es/serverless/sam/).
 
  It has the following features:
